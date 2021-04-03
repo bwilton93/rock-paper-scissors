@@ -10,8 +10,7 @@
     <script>
         let playerSelection;
         let computerSelection;
-        let result;
-
+        let result;  
         let playerScore = 0;
         let computerScore = 0;
 
@@ -42,7 +41,7 @@
             // Write code to run 5 rounds of game and keep track of score
             let playGame = true;
             while (playGame) {
-                for (let i = 4; i < 5; i++) {
+                for (let i = 0; i < 5; i++) {
                     let validSelection = false;
                     while (!validSelection) {
                         playerSelection = prompt('Round ' + (i + 1) + '\nMake your selection');
@@ -67,7 +66,23 @@
                     `You chose ${playerSelection}` + '\n' +
                     `The computer chose ${computerSelection}` + '\n' +
                     playRound(playerSelection, computerSelection));
-                    alert(`Your score is: ${playerScore} \nThe computers score is: ${computerScore}`);
+                    
+                    let scoreDisplay = `Your score is: ${playerScore} \nThe computers score is: ${computerScore}`;
+
+                    if (i < 4) {
+                        alert(scoreDisplay);
+                    } else if (i === 4) {
+                        if (playerScore > computerScore) {
+                            alert(scoreDisplay +
+                            '\nCongratulations, you win the game!');
+                        } else if (playerScore === computerScore) {
+                            alert(scoreDisplay +
+                            '\nYou drew this match!');
+                        } else {
+                            alert(scoreDisplay +
+                            '\nOoh, too bad. You lost this one!');
+                        }
+                    }
                 }            
 
                 // Ask user if they would like to play again
@@ -77,6 +92,8 @@
                     playAgainAnswer = playAgainAnswer.charAt(0).toUpperCase() + playAgainAnswer.slice(1).toLowerCase();
     
                     if (playAgainAnswer === 'Yes') {
+                        playerScore = 0;
+                        computerScore = 0; // Reset scores for new game
                         playAgainSelection = true;
                         playGame = true;
                     } else if (playAgainAnswer === 'No') {
