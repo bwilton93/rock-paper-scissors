@@ -17,8 +17,7 @@
             computerSelection = computerPlay(); // Determine computer selection
 
             // Convert player selection to correct format, first letter capitalised
-            playerSelection = playerSelection.toLowerCase(); 
-            playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1);
+            playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1).toLowerCase();
 
             // Log player and computer selections in console
             console.log('Player selection = ' + playerSelection + '\nComputer selection = ' + computerSelection);
