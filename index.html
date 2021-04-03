@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rock Paper Scissors</title>
+</head>
+
+<body>
+    <script>        
+        // Computer move selection
+        function computerPlay() {
+            let arr = ['Rock', 'Paper', 'Scissors']; // Initalise array with possible moves
+            computerSelection = arr[Math.floor(Math.random() * arr.length)]; // Choose a move from array at random
+            return computerSelection;
+        }
+
+        function playRound(playerSelection, computerSelection) {
+            computerSelection = computerPlay(); // Determine computer selection
+
+            // Convert player selection to correct format, first letter capitalised
+            playerSelection = playerSelection.toLowerCase(); 
+            playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1);
+
+            // Log player and computer selections in console
+            console.log('Player selection = ' + playerSelection + '\nComputer selection = ' + computerSelection);
+        }
+
+    </script>
+</body>    
+</html>
