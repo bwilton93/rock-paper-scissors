@@ -9,28 +9,33 @@ document.getElementById('paper').onclick = play;
 document.getElementById('scissors').onclick = play;
 
 function play(){
+    result = '';
     computerSelection = computerPlay();
     playerSelection = this.id;
     console.log('User: ' + playerSelection);
     console.log('Computer: ' + computerSelection);
+    playRound(playerSelection, computerSelection);
+    console.log(result);
+    console.log('Player score: ' + playerScore);
+    console.log('Computer score: ' + computerScore);
 }
 
 
 function computerPlay() {
-    let arr = ['Rock', 'Paper', 'Scissors']; // Initalise array with possible moves
+    let arr = ['rock', 'paper', 'scissors']; // Initalise array with possible moves
     computerSelection = arr[Math.floor(Math.random() * arr.length)]; // Choose a move from array at random
     return computerSelection;
 }
 
 function playRound(playerSelection, computerSelection) {
-    if ((playerSelection === 'Rock' && computerSelection === 'Scissors') ||
-    (playerSelection === 'Paper' && computerSelection === 'Rock') || 
-    (playerSelection === 'Scissors' && computerSelection === 'Paper')) {
+    if ((playerSelection === 'rock' && computerSelection === 'scissors') ||
+    (playerSelection === 'paper' && computerSelection === 'rock') || 
+    (playerSelection === 'scissors' && computerSelection === 'paper')) {
         playerScore++;
         return result = 'Congratulations, you win!';
-    } else if ((playerSelection === 'Rock' && computerSelection === 'Paper') ||
-    (playerSelection === 'Paper' && computerSelection === 'Scissors') ||
-    (playerSelection === 'Scissors' && computerSelection === 'Rock')) {
+    } else if ((playerSelection === 'rock' && computerSelection === 'paper') ||
+    (playerSelection === 'paper' && computerSelection === 'scissors') ||
+    (playerSelection === 'scissors' && computerSelection === 'rock')) {
         computerScore++;
         return result = 'Unlucky, you lost this round!';
     } else {
