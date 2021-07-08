@@ -16,15 +16,12 @@ function createResultsElement() {
     
     let computerResultDiv = document.createElement('div');
     computerResultDiv.setAttribute('id', 'computer-result');
-    computerResultDiv.innerHTML = '';
     
     let vsDiv = document.createElement('div');
     vsDiv.setAttribute('id', 'vs-div');
-    vsDiv.innerHTML = '';
     
     let playerResultDiv = document.createElement('div');
     playerResultDiv.setAttribute('id', 'player-result');
-    playerResultDiv.innerHTML = '';
 
     resultsDiv.appendChild(playerResultDiv);
     resultsDiv.appendChild(vsDiv);
