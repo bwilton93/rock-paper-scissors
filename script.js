@@ -4,12 +4,33 @@ let result;
 let playerScore = 0;
 let computerScore = 0;
 
+document.body.onload = createResultsElement;
+
 document.getElementById('rock').onclick = play;
 document.getElementById('paper').onclick = play;
 document.getElementById('scissors').onclick = play;
 
+function createResultsElement() {
+    let resultsDiv = document.createElement('div');
+    resultsDiv.setAttribute('class', 'results-container');
+    
+    let computerResultDiv = document.createElement('div');
+    computerResultDiv.setAttribute('id', 'computer-result');
+    
+    let vsDiv = document.createElement('div');
+    vsDiv.setAttribute('id', 'vs-div');
+    
+    let playerResultDiv = document.createElement('div');
+    playerResultDiv.setAttribute('id', 'player-result');
+
+    resultsDiv.appendChild(playerResultDiv);
+    resultsDiv.appendChild(vsDiv);
+    resultsDiv.appendChild(computerResultDiv);
+
+    document.body.appendChild(resultsDiv);
+}
+
 function play(){
-    result = '';
     computerSelection = computerPlay();
     playerSelection = this.id;
     console.log('User: ' + playerSelection);
@@ -19,7 +40,6 @@ function play(){
     console.log('Player score: ' + playerScore);
     console.log('Computer score: ' + computerScore);
 }
-
 
 function computerPlay() {
     let arr = ['rock', 'paper', 'scissors']; // Initalise array with possible moves
