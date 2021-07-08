@@ -4,13 +4,13 @@ let result;
 let playerScore = 0;
 let computerScore = 0;
 
-document.body.onload = resultsElement;
+document.body.onload = createResultsElement;
 
 document.getElementById('rock').onclick = play;
 document.getElementById('paper').onclick = play;
 document.getElementById('scissors').onclick = play;
 
-function resultsElement() {
+function createResultsElement() {
     let resultsDiv = document.createElement('div');
     resultsDiv.setAttribute('class', 'results-container');
     
