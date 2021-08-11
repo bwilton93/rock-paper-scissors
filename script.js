@@ -1,44 +1,72 @@
 let playerSelection;
 let computerSelection;
 let result;  
+let round = 0;
 let playerScore = 0;
 let computerScore = 0;
 
-document.body.onload = createResultsElement;
+document.body.onload = createElements;
 
-document.getElementById('rock').onclick = play;
-document.getElementById('paper').onclick = play;
-document.getElementById('scissors').onclick = play;
+function createElements() {
+    // Create buttons container
+    let buttons = document.createElement('div');
+    buttons.setAttribute('class', 'buttons');
 
-function createResultsElement() {
-    let resultsDiv = document.createElement('div');
-    resultsDiv.setAttribute('class', 'results-container');
+    // Create buttons
+    let rock = document.createElement('button');
+    let paper = document.createElement('button');
+    let scissors = document.createElement('button');
     
-    let computerResultDiv = document.createElement('div');
-    computerResultDiv.setAttribute('id', 'computer-result');
+    // Set button IDs
+    rock.setAttribute('id', 'rock');
+    paper.setAttribute('id', 'paper');
+    scissors.setAttribute('id', 'scissors');
     
-    let vsDiv = document.createElement('div');
-    vsDiv.setAttribute('id', 'vs-div');
+    // Set button display text
+    rock.innerHTML = 'Rock';
+    paper.innerHTML = 'Paper';
+    scissors.innerHTML = 'Scissors';
     
-    let playerResultDiv = document.createElement('div');
-    playerResultDiv.setAttribute('id', 'player-result');
+    // Set up button click functions
+    rock.onclick = play;
+    paper.onclick = play;
+    scissors.onclick = play;
 
-    resultsDiv.appendChild(playerResultDiv);
-    resultsDiv.appendChild(vsDiv);
-    resultsDiv.appendChild(computerResultDiv);
+    // Append buttons to container
+    buttons.appendChild(rock);
+    buttons.appendChild(paper);
+    buttons.appendChild(scissors);
 
-    document.body.appendChild(resultsDiv);
+    // Create selections div
+    let selectionDiv = document.createElement('div');
+    selectionDiv.setAttribute('class', 'selection-container');
+    
+    let selectionPara = document.createElement('p');
+    selectionPara.innerHTML = "<span id='player-choice'></span>" +
+                    " vs " + 
+                    "<span id='computer-choice'></span>";
+    selectionPara.setAttribute('id', 'selection-para');
+
+    selectionDiv.appendChild(selectionPara);
+    
+    // Add elements to page
+    document.querySelector(".main").appendChild(buttons);
+    document.querySelector(".main").appendChild(selectionDiv);
+    // document.querySelector(".main").appendChild(scores);
 }
 
 function play(){
+    round++;
     computerSelection = computerPlay();
     playerSelection = this.id;
-    console.log('User: ' + playerSelection);
-    console.log('Computer: ' + computerSelection);
     playRound(playerSelection, computerSelection);
-    console.log(result);
-    console.log('Player score: ' + playerScore);
-    console.log('Computer score: ' + computerScore);
+    console.log('Round: ' + round +
+            '\n' + result +
+            '\nPlayer score: ' + playerScore +
+            '\nComputer score: ' + computerScore + '\n');
+
+    document.getElementById('player-choice').innerHTML = playerSelection;
+    document.getElementById('computer-choice').innerHTML = computerSelection;
 }
 
 function computerPlay() {
@@ -52,14 +80,14 @@ function playRound(playerSelection, computerSelection) {
     (playerSelection === 'paper' && computerSelection === 'rock') || 
     (playerSelection === 'scissors' && computerSelection === 'paper')) {
         playerScore++;
-        return result = 'Congratulations, you win!';
+        return result = 'Congratulations, you win this round!';
     } else if ((playerSelection === 'rock' && computerSelection === 'paper') ||
     (playerSelection === 'paper' && computerSelection === 'scissors') ||
     (playerSelection === 'scissors' && computerSelection === 'rock')) {
         computerScore++;
         return result = 'Unlucky, you lost this round!';
     } else {
-        return result = "It's a draw!";
+        return result = "This round is a draw!";
     }
 }
 
