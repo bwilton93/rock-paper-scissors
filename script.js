@@ -15,23 +15,28 @@ function onStart() {
 
 function createButtonsContainer() {
     let buttons = document.createElement('div');
-    buttons.setAttribute('class', 'buttons');
+    buttons.setAttribute('class', 'btns-container');
 
     document.querySelector(".main").appendChild(buttons);
 }
 
 function createButtons() {
-    let buttons = document.querySelector('.buttons');
+    let buttons = document.querySelector('.btns-container');
 
     // Create buttons
     let rock = document.createElement('button');
     let paper = document.createElement('button');
     let scissors = document.createElement('button');
     
-    // Set button IDs
+    // Set button IDs & Class
     rock.setAttribute('id', 'rock');
+    rock.className = 'btn-select'
+
     paper.setAttribute('id', 'paper');
+    paper.className = 'btn-select';
+
     scissors.setAttribute('id', 'scissors');
+    scissors.className = 'btn-select';
     
     // Set button display text
     rock.innerHTML = 'Rock';
@@ -49,19 +54,34 @@ function createButtons() {
     buttons.appendChild(scissors);
 }
 
-
 function createDisplays() {
     // Create selections div
     let selectionDiv = document.createElement('div');
     selectionDiv.setAttribute('class', 'selection-container');
     
-    let selectionPara = document.createElement('p');
-    selectionPara.innerHTML = "<span id='player-choice'></span>" +
-                    " vs " + 
-                    "<span id='computer-choice'></span>";
-    selectionPara.setAttribute('id', 'selection-para');
+    // let selectionPara = document.createElement('div');
+    // selectionInner.setAttribute('id', 'selection-para');
+
+    // selectionPara.innerHTML = "<span id='player-choice'></span>" +
+    //                 "<span id='vs'> vs </span>" + 
+    //                 "<span id='computer-choice'></span>";
     
-    selectionDiv.appendChild(selectionPara);
+    let playerChoice = document.createElement('div');
+    playerChoice.setAttribute('id', 'player-choice');
+    playerChoice.className = 'slct-box';
+
+    let vsBox = document.createElement('div');
+    vsBox.setAttribute('id', 'vs-box');
+    vsBox.className = 'slct-box';
+    vsBox.innerHTML = 'Make your selection!';
+
+    let computerChoice = document.createElement('div');
+    computerChoice.setAttribute('id', 'computer-choice');
+    computerChoice.className = 'slct-box';
+
+    selectionDiv.appendChild(playerChoice);
+    selectionDiv.appendChild(vsBox);
+    selectionDiv.appendChild(computerChoice);
     
     // Add elements to page
     document.querySelector(".main").appendChild(selectionDiv);
@@ -80,6 +100,7 @@ function play() {
 
     document.getElementById('player-choice').innerHTML = playerSelection;
     document.getElementById('computer-choice').innerHTML = computerSelection;
+    document.getElementById('vs-box').innerHTML = ' vs ';
 
     // Create play again button after round 5
     if (round === 5) {
@@ -89,7 +110,7 @@ function play() {
         playAgain.setAttribute('id', 'play-again-btn');
         playAgain.innerHTML = 'Play Again?';
         playAgain.onclick = newGame; 
-        document.querySelector('.buttons').appendChild(playAgain);
+        document.querySelector('.btns-container').appendChild(playAgain);
     }
 }
 
@@ -102,11 +123,12 @@ function newGame() {
 
     document.getElementById('player-choice').innerHTML = '';
     document.getElementById('computer-choice').innerHTML = '';
+    document.getElementById('vs-box').innerHTML = 'Make your selection!';
 }
 
 // Clear button node
 function clearButtons() {
-    const buttonNode = document.querySelector('.buttons');
+    const buttonNode = document.querySelector('.btns-container');
     while (buttonNode.firstChild) {
         buttonNode.removeChild(buttonNode.lastChild);
     }
