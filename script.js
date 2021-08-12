@@ -59,13 +59,6 @@ function createDisplays() {
     let selectionDiv = document.createElement('div');
     selectionDiv.setAttribute('class', 'selection-container');
     
-    // let selectionPara = document.createElement('div');
-    // selectionInner.setAttribute('id', 'selection-para');
-
-    // selectionPara.innerHTML = "<span id='player-choice'></span>" +
-    //                 "<span id='vs'> vs </span>" + 
-    //                 "<span id='computer-choice'></span>";
-    
     let playerChoice = document.createElement('div');
     playerChoice.setAttribute('id', 'player-choice');
     playerChoice.className = 'slct-box';
