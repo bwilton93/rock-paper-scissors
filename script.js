@@ -8,9 +8,9 @@ let computerScore = 0;
 document.body.onload = onStart();
 
 function onStart() {
+    createDisplays();
     createButtonsContainer();
     createButtons();
-    createDisplays();
 }
 
 function createButtonsContainer() {
@@ -92,9 +92,9 @@ function createDisplays() {
     let selectionDiv = document.createElement('div');
     selectionDiv.className = 'selection-container';
     
-    selectionDiv.appendChild(createSelectionsBox('player-choice', ''));
+    selectionDiv.appendChild(createSelectionsBox('player-choice', ' '));
     selectionDiv.appendChild(createSelectionsBox('vs-box', 'Make your selection!'));
-    selectionDiv.appendChild(createSelectionsBox('computer-choice', ''));
+    selectionDiv.appendChild(createSelectionsBox('computer-choice', ' '));
 
     // Create score box container
     let scoreBox = document.createElement('div');
@@ -115,9 +115,9 @@ function play() {
     computerSelection = computerPlay();
     playerSelection = this.id;
     playRound(playerSelection, computerSelection);
-    
-    document.getElementById('player-choice').innerHTML = playerSelection;
-    document.getElementById('computer-choice').innerHTML = computerSelection;
+
+    document.getElementById('player-choice').innerHTML = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1);
+    document.getElementById('computer-choice').innerHTML = computerSelection.charAt(0).toUpperCase() + computerSelection.slice(1);
     document.getElementById('vs-box').innerHTML = ' vs ';
 
     document.getElementById('player-lower').innerHTML = playerScore;

@@ -14,6 +14,7 @@
     width: 100%;
     max-width: 900px;
     margin: auto;
+    padding: 25px;
 }
 
 .btn-select, #play-again-btn {
@@ -29,24 +30,24 @@
     margin: auto;
     align-items: center;
     justify-content: center;
+    padding-top: 10px;
 }
 
 .flex-box {
     flex: 1;
     display: flex;
     justify-content: center;
+    align-items: center;
     font-size: 2rem;
     margin: 0px 5px;
 }
 
 #player-choice {
     margin-right: auto;
-    justify-content: flex-end;
 }
 
 #computer-choice {
     margin-left: auto;
-    justify-content: flex-start;
 }
 
 .score-box {
@@ -79,14 +80,20 @@
     .btns-container {
         flex-direction: column;
         align-items: center;
+        padding: 0;
+        min-height: 250px;
     }
 
-    #play-again-btn {
-        margin: 73px 0px;
+    #vs-box {
+        align-items: center;
     }
 
     .selection-container {
         flex-direction: column;
+        min-height: 200px;
+        justify-content: center;
+        align-items: center;
+        padding-top: 50px;
     }
 
     #player-choice, #computer-choice {
