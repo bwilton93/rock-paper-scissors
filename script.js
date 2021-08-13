@@ -8,9 +8,9 @@ let computerScore = 0;
 document.body.onload = onStart();
 
 function onStart() {
+    createDisplays();
     createButtonsContainer();
     createButtons();
-    createDisplays();
 }
 
 function createButtonsContainer() {
@@ -21,75 +21,36 @@ function createButtonsContainer() {
 }
 
 function createButtons() {
+    // Create buttons
+    function makeButton(buttonName) {
+        let button = document.createElement('button');
+        button.className = 'btn-select';
+        button.setAttribute('id', buttonName)     
+        button.innerHTML = buttonName.charAt(0).toUpperCase() + buttonName.slice(1);
+        button.addEventListener('click', play);
+
+        return button;
+    }
+
+    // Identify button container
     let buttons = document.querySelector('.btns-container');
 
-    // Create buttons
-    let rock = document.createElement('button');
-    let paper = document.createElement('button');
-    let scissors = document.createElement('button');
-    
-    // Set button IDs & Class
-    rock.setAttribute('id', 'rock');
-    rock.className = 'btn-select'
-
-    paper.setAttribute('id', 'paper');
-    paper.className = 'btn-select';
-
-    scissors.setAttribute('id', 'scissors');
-    scissors.className = 'btn-select';
-    
-    // Set button display text
-    rock.innerHTML = 'Rock';
-    paper.innerHTML = 'Paper';
-    scissors.innerHTML = 'Scissors';
-    
-    // Set up button click functions
-    rock.onclick = play;
-    paper.onclick = play;
-    scissors.onclick = play;
-
     // Append buttons to container
-    buttons.appendChild(rock);
-    buttons.appendChild(paper);
-    buttons.appendChild(scissors);
+    buttons.appendChild(makeButton('rock'));
+    buttons.appendChild(makeButton('paper'));
+    buttons.appendChild(makeButton('scissors'));
 }
 
 function createDisplays() {
-    // Create selections div
-    let selectionDiv = document.createElement('div');
-    selectionDiv.className = 'selection-container';
-    
     // Create selections text divs using function
     function createSelectionsBox(name, text) {
         let result = document.createElement('div');
         result.className = 'flex-box';
         result.setAttribute('id', name);
         result.innerHTML = text;
+        
         return result;
     }
-
-    selectionDiv.appendChild(createSelectionsBox('player-choice', ''));
-    selectionDiv.appendChild(createSelectionsBox('vs-box', 'Make your selection!'));
-    selectionDiv.appendChild(createSelectionsBox('computer-choice', ''));
-
-    // Create score box container
-    let scoreBox = document.createElement('div');
-    scoreBox.className = 'score-box';
-
-    // Create score cards
-    let playerScoreContainer = document.createElement('div');
-    playerScoreContainer.setAttribute('id', 'player-score-container');
-    playerScoreContainer.className = 'flex-box';
-
-    let scoreBoxSeperator = document.createElement('div');
-    scoreBoxSeperator.setAttribute('id', 'score-box-seperator');
-    scoreBoxSeperator.className = 'flex-box';
-    scoreBoxSeperator.innerHTML = ':';
-
-    let computerScoreContainer = document.createElement('div');
-    computerScoreContainer.setAttribute('id', 'computer-score-container');
-    computerScoreContainer.className = 'flex-box';
-
 
     // Create score box display text
     function createScoreDivs(name, score) {
@@ -111,12 +72,38 @@ function createDisplays() {
         return verticalDivs;
     }
 
-    playerScoreContainer.appendChild(createScoreDivs('player', playerScore));
-    computerScoreContainer.appendChild(createScoreDivs('computer', computerScore));
+    function scoreBoxInners(name) {
+        let scoreContainer = document.createElement('div');
+        scoreContainer.setAttribute('id', `${name}-score-container`);
+        scoreContainer.className = 'flex-box';
 
-    scoreBox.appendChild(playerScoreContainer);
-    scoreBox.appendChild(scoreBoxSeperator);
-    scoreBox.appendChild(computerScoreContainer);
+        if (name === 'player') {
+            scoreContainer.appendChild(createScoreDivs(name, playerScore));
+        } else if (name === 'computer') {
+            scoreContainer.appendChild(createScoreDivs(name, computerScore));
+        } else {
+            scoreContainer.innerHTML = ':';
+        }
+
+        return scoreContainer;
+    }
+
+    // Create selections div
+    let selectionDiv = document.createElement('div');
+    selectionDiv.className = 'selection-container';
+    
+    selectionDiv.appendChild(createSelectionsBox('player-choice', ' '));
+    selectionDiv.appendChild(createSelectionsBox('vs-box', 'Make your selection!'));
+    selectionDiv.appendChild(createSelectionsBox('computer-choice', ' '));
+
+    // Create score box container
+    let scoreBox = document.createElement('div');
+    scoreBox.className = 'score-box';
+
+    // Append score boxes to main score container
+    scoreBox.appendChild(scoreBoxInners('player'));
+    scoreBox.appendChild(scoreBoxInners('vs'));
+    scoreBox.appendChild(scoreBoxInners('computer'));
 
     // Add elements to page
     document.querySelector(".main").appendChild(selectionDiv);
@@ -128,13 +115,9 @@ function play() {
     computerSelection = computerPlay();
     playerSelection = this.id;
     playRound(playerSelection, computerSelection);
-    console.log('Round: ' + round +
-            '\n' + result +
-            '\nPlayer score: ' + playerScore +
-            '\nComputer score: ' + computerScore + '\n');
 
-    document.getElementById('player-choice').innerHTML = playerSelection;
-    document.getElementById('computer-choice').innerHTML = computerSelection;
+    document.getElementById('player-choice').innerHTML = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1);
+    document.getElementById('computer-choice').innerHTML = computerSelection.charAt(0).toUpperCase() + computerSelection.slice(1);
     document.getElementById('vs-box').innerHTML = ' vs ';
 
     document.getElementById('player-lower').innerHTML = playerScore;
