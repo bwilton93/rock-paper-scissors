@@ -57,28 +57,60 @@ function createButtons() {
 function createDisplays() {
     // Create selections div
     let selectionDiv = document.createElement('div');
-    selectionDiv.setAttribute('class', 'selection-container');
+    selectionDiv.className = 'selection-container';
     
-    let playerChoice = document.createElement('div');
-    playerChoice.setAttribute('id', 'player-choice');
-    playerChoice.className = 'slct-box';
+    // Create selections text divs using function
+    function createSelectionsBox(name, text) {
+        let result = document.createElement('div');
+        result.className = 'flex-box';
+        result.setAttribute('id', name);
+        result.innerHTML = text;
+        return result;
+    }
 
-    let vsBox = document.createElement('div');
-    vsBox.setAttribute('id', 'vs-box');
-    vsBox.className = 'slct-box';
-    vsBox.innerHTML = 'Make your selection!';
+    selectionDiv.appendChild(createSelectionsBox('player-choice', ''));
+    selectionDiv.appendChild(createSelectionsBox('vs-box', 'Make your selection!'));
+    selectionDiv.appendChild(createSelectionsBox('computer-choice', ''));
 
-    let computerChoice = document.createElement('div');
-    computerChoice.setAttribute('id', 'computer-choice');
-    computerChoice.className = 'slct-box';
+    // Create score box container
+    let scoreBox = document.createElement('div');
+    scoreBox.className = 'score-box';
 
-    selectionDiv.appendChild(playerChoice);
-    selectionDiv.appendChild(vsBox);
-    selectionDiv.appendChild(computerChoice);
+    // Create score cards
+    let playerScoreContainer = document.createElement('div');
+    playerScoreContainer.setAttribute('id', 'player-score-container');
+    playerScoreContainer.className = 'flex-box';
+    // let verticalFlex = document.createElement('div');
+    // verticalFlex.className = 'vertical-flex';
+    // playerScoreContainer.appendChild(verticalFlex);
+
+    let scoreBoxSeperator = document.createElement('div');
+    scoreBoxSeperator.setAttribute('id', 'score-box-seperator');
+    scoreBoxSeperator.className = 'flex-box';
+    // verticalFlex = document.createElement('div');
+    // verticalFlex.className = 'vertical-flex';
+    // scoreBoxSeperator.appendChild(verticalFlex);
+
+    let computerScoreContainer = document.createElement('div');
+    computerScoreContainer.setAttribute('id', 'computer-score-container');
+    computerScoreContainer.className = 'flex-box';
+    // verticalFlex = document.createElement('div');
+    // verticalFlex.className = 'vertical-flex';
+    // computerScoreContainer.appendChild(verticalFlex);
+
+    scoreBox.appendChild(playerScoreContainer);
+    scoreBox.appendChild(scoreBoxSeperator);
+    scoreBox.appendChild(computerScoreContainer);
+
+    // for (let i = 0; i < 2; i++) {
+    //     let verticalFlex = document.createElement('div');
+    //     verticalFlex.className = 'vertical-flex';
+        
+    // }
     
     // Add elements to page
     document.querySelector(".main").appendChild(selectionDiv);
-    // document.querySelector(".main").appendChild(scores);
+    document.querySelector(".main").prepend(scoreBox);
 }
 
 function play() {
