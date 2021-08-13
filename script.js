@@ -80,34 +80,44 @@ function createDisplays() {
     let playerScoreContainer = document.createElement('div');
     playerScoreContainer.setAttribute('id', 'player-score-container');
     playerScoreContainer.className = 'flex-box';
-    // let verticalFlex = document.createElement('div');
-    // verticalFlex.className = 'vertical-flex';
-    // playerScoreContainer.appendChild(verticalFlex);
 
     let scoreBoxSeperator = document.createElement('div');
     scoreBoxSeperator.setAttribute('id', 'score-box-seperator');
     scoreBoxSeperator.className = 'flex-box';
-    // verticalFlex = document.createElement('div');
-    // verticalFlex.className = 'vertical-flex';
-    // scoreBoxSeperator.appendChild(verticalFlex);
+    scoreBoxSeperator.innerHTML = ':';
 
     let computerScoreContainer = document.createElement('div');
     computerScoreContainer.setAttribute('id', 'computer-score-container');
     computerScoreContainer.className = 'flex-box';
-    // verticalFlex = document.createElement('div');
-    // verticalFlex.className = 'vertical-flex';
-    // computerScoreContainer.appendChild(verticalFlex);
+
+
+    // Create score box display text
+    function createScoreDivs(name, score) {
+        let verticalDivs = document.createElement('div');
+        verticalDivs.className = 'center-text';
+
+        let upperDiv = document.createElement('div');
+        let lowerDiv = document.createElement('div');
+
+        upperDiv.setAttribute('id', `${name}-upper`);
+        lowerDiv.setAttribute('id', `${name}-lower`);
+
+        upperDiv.innerHTML = name.toUpperCase();
+        lowerDiv.innerHTML = score;
+
+        verticalDivs.appendChild(upperDiv);
+        verticalDivs.appendChild(lowerDiv);
+
+        return verticalDivs;
+    }
+
+    playerScoreContainer.appendChild(createScoreDivs('player', playerScore));
+    computerScoreContainer.appendChild(createScoreDivs('computer', computerScore));
 
     scoreBox.appendChild(playerScoreContainer);
     scoreBox.appendChild(scoreBoxSeperator);
     scoreBox.appendChild(computerScoreContainer);
 
-    // for (let i = 0; i < 2; i++) {
-    //     let verticalFlex = document.createElement('div');
-    //     verticalFlex.className = 'vertical-flex';
-        
-    // }
-    
     // Add elements to page
     document.querySelector(".main").appendChild(selectionDiv);
     document.querySelector(".main").prepend(scoreBox);
@@ -127,6 +137,9 @@ function play() {
     document.getElementById('computer-choice').innerHTML = computerSelection;
     document.getElementById('vs-box').innerHTML = ' vs ';
 
+    document.getElementById('player-lower').innerHTML = playerScore;
+    document.getElementById('computer-lower').innerHTML = computerScore;
+
     // Create play again button after round 5
     if (round === 5) {
         clearButtons();
@@ -142,6 +155,8 @@ function play() {
 // Resets game state on "Play Again" button
 function newGame() {
     round = 0;
+    playerScore = 0;
+    computerScore = 0;
 
     clearButtons();
     createButtons();
@@ -149,6 +164,8 @@ function newGame() {
     document.getElementById('player-choice').innerHTML = '';
     document.getElementById('computer-choice').innerHTML = '';
     document.getElementById('vs-box').innerHTML = 'Make your selection!';
+    document.getElementById('player-lower').innerHTML = playerScore;
+    document.getElementById('computer-lower').innerHTML = computerScore;
 }
 
 // Clear button node
