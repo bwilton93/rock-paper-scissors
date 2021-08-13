@@ -57,28 +57,70 @@ function createButtons() {
 function createDisplays() {
     // Create selections div
     let selectionDiv = document.createElement('div');
-    selectionDiv.setAttribute('class', 'selection-container');
+    selectionDiv.className = 'selection-container';
     
-    let playerChoice = document.createElement('div');
-    playerChoice.setAttribute('id', 'player-choice');
-    playerChoice.className = 'slct-box';
+    // Create selections text divs using function
+    function createSelectionsBox(name, text) {
+        let result = document.createElement('div');
+        result.className = 'flex-box';
+        result.setAttribute('id', name);
+        result.innerHTML = text;
+        return result;
+    }
 
-    let vsBox = document.createElement('div');
-    vsBox.setAttribute('id', 'vs-box');
-    vsBox.className = 'slct-box';
-    vsBox.innerHTML = 'Make your selection!';
+    selectionDiv.appendChild(createSelectionsBox('player-choice', ''));
+    selectionDiv.appendChild(createSelectionsBox('vs-box', 'Make your selection!'));
+    selectionDiv.appendChild(createSelectionsBox('computer-choice', ''));
 
-    let computerChoice = document.createElement('div');
-    computerChoice.setAttribute('id', 'computer-choice');
-    computerChoice.className = 'slct-box';
+    // Create score box container
+    let scoreBox = document.createElement('div');
+    scoreBox.className = 'score-box';
 
-    selectionDiv.appendChild(playerChoice);
-    selectionDiv.appendChild(vsBox);
-    selectionDiv.appendChild(computerChoice);
-    
+    // Create score cards
+    let playerScoreContainer = document.createElement('div');
+    playerScoreContainer.setAttribute('id', 'player-score-container');
+    playerScoreContainer.className = 'flex-box';
+
+    let scoreBoxSeperator = document.createElement('div');
+    scoreBoxSeperator.setAttribute('id', 'score-box-seperator');
+    scoreBoxSeperator.className = 'flex-box';
+    scoreBoxSeperator.innerHTML = ':';
+
+    let computerScoreContainer = document.createElement('div');
+    computerScoreContainer.setAttribute('id', 'computer-score-container');
+    computerScoreContainer.className = 'flex-box';
+
+
+    // Create score box display text
+    function createScoreDivs(name, score) {
+        let verticalDivs = document.createElement('div');
+        verticalDivs.className = 'center-text';
+
+        let upperDiv = document.createElement('div');
+        let lowerDiv = document.createElement('div');
+
+        upperDiv.setAttribute('id', `${name}-upper`);
+        lowerDiv.setAttribute('id', `${name}-lower`);
+
+        upperDiv.innerHTML = name.toUpperCase();
+        lowerDiv.innerHTML = score;
+
+        verticalDivs.appendChild(upperDiv);
+        verticalDivs.appendChild(lowerDiv);
+
+        return verticalDivs;
+    }
+
+    playerScoreContainer.appendChild(createScoreDivs('player', playerScore));
+    computerScoreContainer.appendChild(createScoreDivs('computer', computerScore));
+
+    scoreBox.appendChild(playerScoreContainer);
+    scoreBox.appendChild(scoreBoxSeperator);
+    scoreBox.appendChild(computerScoreContainer);
+
     // Add elements to page
     document.querySelector(".main").appendChild(selectionDiv);
-    // document.querySelector(".main").appendChild(scores);
+    document.querySelector(".main").prepend(scoreBox);
 }
 
 function play() {
@@ -95,6 +137,9 @@ function play() {
     document.getElementById('computer-choice').innerHTML = computerSelection;
     document.getElementById('vs-box').innerHTML = ' vs ';
 
+    document.getElementById('player-lower').innerHTML = playerScore;
+    document.getElementById('computer-lower').innerHTML = computerScore;
+
     // Create play again button after round 5
     if (round === 5) {
         clearButtons();
@@ -110,6 +155,8 @@ function play() {
 // Resets game state on "Play Again" button
 function newGame() {
     round = 0;
+    playerScore = 0;
+    computerScore = 0;
 
     clearButtons();
     createButtons();
@@ -117,6 +164,8 @@ function newGame() {
     document.getElementById('player-choice').innerHTML = '';
     document.getElementById('computer-choice').innerHTML = '';
     document.getElementById('vs-box').innerHTML = 'Make your selection!';
+    document.getElementById('player-lower').innerHTML = playerScore;
+    document.getElementById('computer-lower').innerHTML = computerScore;
 }
 
 // Clear button node

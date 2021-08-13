@@ -31,7 +31,7 @@
     justify-content: center;
 }
 
-.slct-box {
+.flex-box {
     flex: 1;
     display: flex;
     justify-content: center;
@@ -49,6 +49,26 @@
     justify-content: flex-start;
 }
 
+.score-box {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    margin: auto;
+    max-width: 900px;
+}
+
+#score-box-seperator {
+    margin: auto;
+}
+
+.center-text {
+    text-align: center;
+    align-items: center;
+}
+
+.center-text > div {
+    font-size: 50px;
+}
 /* Set base styling for small screens / mobile */
 @media screen and (max-width: 1000px) {
     * {
