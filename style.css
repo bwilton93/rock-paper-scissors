@@ -67,8 +67,9 @@
 }
 
 .center-text > div {
-    font-size: 50px;
+    font-size: 3rem;
 }
+
 /* Set base styling for small screens / mobile */
 @media screen and (max-width: 1000px) {
     * {
@@ -90,5 +91,9 @@
 
     #player-choice, #computer-choice {
         margin: 0;
+    }
+
+    .center-text > div {
+        font-size: 2rem;
     }
 }
